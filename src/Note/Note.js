@@ -1,10 +1,20 @@
-import React from 'react'
+import React, {useContext}from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
+import NoteContext from '../noteContext'
 
 export default function Note(props) {
+  const context = useContext(NoteContext)
+  const onDelete= e=>{
+    fetch(`http://localhost:9090/notes/${props.id}`, {
+      method:'delete'
+    }) .then(res => {context.getData()
+      props.history.push('/')
+    })
+
+  }
   return (
     <div className='Note'>
       <h2 className='Note__title'>
@@ -12,7 +22,7 @@ export default function Note(props) {
           {props.name}
         </Link>
       </h2>
-      <button className='Note__delete' type='button'>
+      <button className='Note__delete' type='button' onClick={onDelete}>
         <FontAwesomeIcon icon='trash-alt' />
         {' '}
         remove
