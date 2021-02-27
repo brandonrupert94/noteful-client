@@ -5,10 +5,13 @@ import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import AddFolder from '../AddFolder/AddFolder'
+
 import './App.css';
 import NoteContext from '../noteContext';
+import AddNote from '../AddNote/addNote';
+import NoteError from '../NoteError';
+
 
 class App extends Component {
   state = {
@@ -35,7 +38,7 @@ class App extends Component {
   }
 
   renderNavRoutes() {
-    const { notes, folders } = this.state;
+    
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -50,14 +53,15 @@ class App extends Component {
           path="/note/:noteId"
           component={NotePageNav}
         />
-        <Route path="/add-folder" component={NotePageNav} />
-        <Route path="/add-note" component={NotePageNav} />
+        <Route path="/add-folder" component={AddFolder} />
+        <Route path="/add-note" component={AddNote} />
+        
       </>
     );
   }
 
   renderMainRoutes() {
-    const { notes, folders } = this.state;
+    
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -84,6 +88,7 @@ class App extends Component {
     }
     return (
       <NoteContext.Provider value={contextValue}>
+        <NoteError>
         <div className="App">
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
@@ -94,6 +99,7 @@ class App extends Component {
           </header>
           <main className="App__main">{this.renderMainRoutes()}</main>
         </div>
+        </NoteError>
       </NoteContext.Provider>
     );
   }

@@ -1,16 +1,18 @@
-import React, {useContext}from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import NoteContext from '../noteContext'
+import PropTypes from 'prop-types';
 
 export default function Note(props) {
   const context = useContext(NoteContext)
-  const onDelete= e=>{
+  const onDelete = e => {
     fetch(`http://localhost:9090/notes/${props.id}`, {
-      method:'delete'
-    }) .then(res => {context.getData()
+      method: 'delete'
+    }).then(res => {
+      context.getData()
       props.history.push('/')
     })
 
@@ -38,4 +40,10 @@ export default function Note(props) {
       </div>
     </div>
   )
+}
+Note.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  history: PropTypes.any,
+  modified: PropTypes.string.isRequired
 }

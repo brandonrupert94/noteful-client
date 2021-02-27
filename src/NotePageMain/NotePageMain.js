@@ -2,7 +2,8 @@ import React, { useContext } from 'react'
 import Note from '../Note/Note'
 import './NotePageMain.css'
 import NoteContext from '../noteContext'
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import {findNote } from '../notes-helpers';
+import PropTypes from 'prop-types';
 
 export default function NotePageMain(props) {
   const context = useContext(NoteContext)
@@ -29,4 +30,12 @@ NotePageMain.defaultProps = {
   note: {
     content: '',
   }
+}
+NotePageMain.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      noteId: PropTypes.string
+    })
+  }),
+  history: PropTypes.any
 }

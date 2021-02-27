@@ -5,7 +5,8 @@ import Note from '../Note/Note'
 import CircleButton from '../CircleButton/CircleButton'
 import './NoteListMain.css'
 import NoteContext from '../noteContext'
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import { getNotesForFolder} from '../notes-helpers';
+import PropTypes from 'prop-types';
 
 export default function NoteListMain(props) {
   const context = useContext(NoteContext)
@@ -45,4 +46,11 @@ export default function NoteListMain(props) {
 
 NoteListMain.defaultProps = {
   notes: [],
+}
+NoteListMain.propType = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      folderId: PropTypes.string
+    })
+  })
 }
